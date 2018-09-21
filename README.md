@@ -1,2 +1,2 @@
 # camel-sandbox
-a project to play and understand camel
+a project to play with and understand camel
