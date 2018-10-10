@@ -18,9 +18,31 @@ public class Sandbox2RouteBuilder extends RouteBuilder {
             .end()
             .log("test-long-process-with-a-seda-call-within - BEGIN")
             .to(ExchangePattern.InOnly, "seda:non-disruptive-task")
-            .log("test-long-process-with-a-seda-call-within - BEFORE DELAY")
-            .delay(5000)
+            .to("direct:long-process")
             .log("test-long-process-with-a-seda-call-within - END");
+
+        from("direct:long-process")
+            .log("long-process - BEGIN")
+            .log("processing 1 ...")
+            .delay(500)
+            .log("processing 2 ...")
+            .delay(500)
+            .log("processing 3 ...")
+            .delay(500)
+            .log("processing 4 ...")
+            .delay(500)
+            .log("processing 5 ...")
+            .delay(500)
+            .log("processing 6 ...")
+            .delay(500)
+            .log("processing 7 ...")
+            .delay(500)
+            .log("processing 8 ...")
+            .delay(500)
+            .log("processing 9 ...")
+            .delay(500)
+            .log("long-process - END");
+
 
 
         from("seda:non-disruptive-task")
@@ -29,7 +51,7 @@ public class Sandbox2RouteBuilder extends RouteBuilder {
             .end()
             .log("non-disruptive-task - BEGIN")
             .process(ex -> {
-                throw new RuntimeException("runtime exception in routeY");
+                throw new RuntimeException("runtime exception in non-disruptive-task");
             })
             .log("non-disruptive-task - END");
     }

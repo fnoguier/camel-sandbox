@@ -29,9 +29,9 @@ public class CamelSandbox2Tests {
 		producerTemplate = camelContext.createProducerTemplate();
 	}
 
-	    @Test
+	@Test
     public void request_to_test_long_process_with_a_seda_call_within() {
-        producerTemplate.sendBody("direct:test-long-process-with-a-seda-call-within", "");
+        producerTemplate.requestBody("direct:test-long-process-with-a-seda-call-within", "");
     }
 
 }
