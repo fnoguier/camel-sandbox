@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.PostConstruct;
@@ -19,7 +20,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CamelSandboxApplicationTests {
+@ActiveProfiles("sandbox1")
+public class CamelSandbox1Tests {
 
 	@Autowired
 	private CamelContext camelContext;
@@ -89,4 +91,6 @@ public class CamelSandboxApplicationTests {
             .isInstanceOf(CamelExecutionException.class)
             .hasCauseInstanceOf(RuntimeException.class);
     }
+
+
 }

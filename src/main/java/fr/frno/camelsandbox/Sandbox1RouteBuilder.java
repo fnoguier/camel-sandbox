@@ -2,10 +2,12 @@ package fr.frno.camelsandbox;
 
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.builder.RouteBuilder;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SandboxRouteBuilder extends RouteBuilder {
+@Profile("sandbox1")
+public class Sandbox1RouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
@@ -58,7 +60,6 @@ public class SandboxRouteBuilder extends RouteBuilder {
             .to(ExchangePattern.InOut, "seda:routeY")
             .log("routeBC - END");
 
-
         from("seda:routeY")
             .onException(Exception.class)
             .log("routeY - EXCEPTION HANDLING")
@@ -78,6 +79,7 @@ public class SandboxRouteBuilder extends RouteBuilder {
                 throw new RuntimeException("runtime exception in routeZ");
             })
             .log("routeZ - END");
+
 
 
     }
